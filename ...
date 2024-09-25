@@ -1,0 +1,69 @@
+# Lista de compras vacía
+lista_compras = []
+
+# Función para mostrar la lista de productos
+def mostrar_lista(lista):
+    if not lista:
+        print("La lista de compras está vacía.")
+    else:
+        print("\nLista de compras:")
+        for i, (producto, precio, cantidad) in enumerate(lista):
+            print(f"{i+1}. {producto} - ${precio:.2f} x {cantidad}")
+
+# Función para calcular el costo total
+def calcular_precio_total(lista):
+    total = 0
+    for producto, precio, cantidad in lista:
+        total += precio * cantidad
+    return total
+
+# Función para agregar un producto a la lista
+def agregar_producto(lista):
+    producto = input("Ingrese el nombre del producto: ")
+    precio = float(input(f"Ingrese el precio de {producto}: "))
+    cantidad = int(input(f"Ingrese la cantidad de {producto}: "))
+    lista.append((producto, precio, cantidad))
+    print(f"{producto} ha sido añadido a la lista.\n")
+
+# Función para eliminar un producto de la lista
+def eliminar_producto(lista):
+    mostrar_lista(lista)
+    try:
+        indice = int(input("Ingrese el número del producto a eliminar: ")) - 1
+        if 0 <= indice < len(lista):
+            producto = lista.pop(indice)
+            print(f"{producto[0]} ha sido eliminado de la lista.\n")
+        else:
+            print("Índice no válido.")
+    except ValueError:
+        print("Entrada no válida.")
+
+# Función principal que maneja el menú de opciones
+def menu():
+    while True:
+        print("\nMenú:")
+        print("1. Ver lista de compras")
+        print("2. Agregar producto")
+        print("3. Eliminar producto")
+        print("4. Ver costo total")
+        print("5. Salir")
+
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == '1':
+            mostrar_lista(lista_compras)
+        elif opcion == '2':
+            agregar_producto(lista_compras)
+        elif opcion == '3':
+            eliminar_producto(lista_compras)
+        elif opcion == '4':
+            total = calcular_precio_total(lista_compras)
+            print(f"\nEl precio total de la lista de compras es: ${total:.2f}\n")
+        elif opcion == '5':
+            print("Saliendo del programa.")
+            break
+        else:
+            print("Opción no válida, intente nuevamente.")
+
+# Ejecutar el menú
+menu()
